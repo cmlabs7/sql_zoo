@@ -1,3 +1,5 @@
+-- SELECT NAME 
+
 -- 1.
 
 SELECT name FROM world

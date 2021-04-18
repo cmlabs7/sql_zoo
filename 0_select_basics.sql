@@ -1,3 +1,5 @@
+-- SELECT BASICS
+
 -- 1.
 
 SELECT population FROM world

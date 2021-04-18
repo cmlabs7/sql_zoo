@@ -1,53 +1,87 @@
-SELECT name FROM world
-  WHERE population >
-     (SELECT population FROM world
-      WHERE name='Russia')
+-- SELECT FROM WORLD
 
+-- 1. 
 
+SELECT name, continent, population FROM world;
 
-      SELECT name, continent
+-- 2. 
+
+SELECT name
+  FROM world
+ WHERE population > 200000000;
+
+-- 3.
+
+SELECT name, gdp/population AS gdp_per_capita
 FROM world
-WHERE continent IN (
+WHERE population >=200000000;
 
-    (
-    SELECT continent 
-    FROM world 
-    WHERE name = 'Argentina'
-    ), 
+-- 4.
 
-    (
-    SELECT continent 
-    FROM world 
-    WHERE name = 'Australia'
-    )
+SELECT name, population/1000000 AS pop_in_millions
+FROM world
+WHERE continent = 'South America';
 
-)
-ORDER BY name;
-
+-- 5.
 
 SELECT name, population
 FROM world
-WHERE population >
-(
-    SELECT population FROM world WHERE name = 'Canada'
-    )
-AND population <
-(
-    SELECT population FROM world WHERE name = 'Poland'
-    )
+WHERE name IN('France', 'Germany', 'Italy');
 
-SELECT continent, name 
-FROM world x
-WHERE name <= ALL(SELECT name FROM world y 
-                   WHERE y.continent=x.continent)
-ORDER BY continent, name;
+-- 6.
 
-SELECT name, continent, population
-FROM world x
-WHERE continent IN(
-SELECT continent FROM world j WHERE 25000000 > (SELECT MAX(population) FROM world k WHERE k.continent=j.continent))
-ORDER BY continent, name;
+SELECT name 
+FROM world
+WHERE name LIKE '%United%';
 
-SELECT name, continent
-FROM world x
-WHERE population >(SELECT MAX(population *3) FROM world y WHERE y.continent = x.continent AND x.name <> y.name);
+-- 7.
+
+SELECT name, population, area
+FROM world
+WHERE area > 3000000 OR population > 250000000;
+
+
+-- 8.
+
+SELECT name, population, area
+FROM world
+WHERE population > 250000000 XOR area > 3000000;
+
+-- 9.
+
+SELECT name, ROUND(population/1000000,2) AS pop_in_millions, ROUND(gdp/1000000000,2) AS gdp_in_billions
+FROM world
+WHERE continent = 'South America';
+
+-- 10.
+
+SELECT name, ROUND(gdp/population, -3) AS gdp_per_capita
+FROM world
+WHERE gdp >= 1000000000000;
+
+-- 11.
+
+SELECT name, capital
+FROM world
+WHERE LENGTH(name) = LENGTH(capital);
+
+-- 12.
+
+SELECT name, capital
+FROM world
+WHERE LEFT(name,1) = LEFT(capital,1) AND name <> capital;
+
+-- 13.
+
+SELECT name
+  FROM world
+    WHERE name LIKE '%a%' 
+      AND name LIKE '%e%' 
+      AND name LIKE '%i%' 
+      AND name LIKE '%o%' 
+      AND name LIKE '%u%' 
+      AND name NOT LIKE '% %';
+
+
+
+
