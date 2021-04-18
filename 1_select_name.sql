@@ -49,12 +49,34 @@ SELECT name FROM world
 SELECT name FROM world
  WHERE name LIKE '____'
 
- -- 11.
+-- 11.
 
- SELECT name
-  FROM world
- WHERE name LIKE capital
+SELECT name
+FROM world
+WHERE capital LIKE name;
 
- -- 12.
+-- 12.
 
- 
+SELECT name
+FROM world
+WHERE capital LIKE CONCAT(name, '%City');
+
+-- 13.
+
+SELECT capital, name
+FROM world
+WHERE capital LIKE CONCAT('%', name, '%');
+
+-- 14.
+
+SELECT capital, name 
+FROM world
+WHERE capital LIKE CONCAT(name, '_%')
+
+-- 15.
+
+SELECT name, REPLACE(capital, name, '') AS ext
+FROM world
+WHERE capital LIKE CONCAT(name,'_%')
+
+
